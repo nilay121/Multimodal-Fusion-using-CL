@@ -43,21 +43,6 @@ Fusing the information from two different modalities of data for real time objec
   python3 main.py --enable_ilfr True --enable_ssl True --ssl_type random 
   ```
   
-## To replicate the application on a gripper
-  - Make sure the Arduino board of the control box and the sensors are connected to the proper ports
-  - Train the SynapNet algorithm on the offline data incrementally
-    ```bash
-    python3 main.py --Uk_classExpPhase False --pseudo_exp False
-    ```
-  - To perform real-time dynamic training on new unseen objects
-    ```bash
-    python main.py --Uk_classExpPhase True --pseudo_exp False
-    ```
-  - To perform a pseudo-real-time experiment
-    ```bash
-    python main.py --Uk_classExpPhase True --pseudo_exp True
-    ```
-  
 ## To cite the paper
   ```bash
   ```
