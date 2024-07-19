@@ -18,6 +18,11 @@ Fusing the information from two different modalities of data for real time objec
   ```bash
   pip3 install -r requirements.txt
   ```
+## Steps to follow
+- Put the gripper dataset in the "dataset" folder
+- Run the "dataset_vidToImage.py" file to extract train test images from video frame
+- Run the "unsupervised_dataset.py" file to generate the unlabeled data for SSL
+- Put the pre-trained feature extractors in the "pre_trained_models" folder
 
 ## Ros dependencies
 
