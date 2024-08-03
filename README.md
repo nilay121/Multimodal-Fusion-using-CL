@@ -25,7 +25,9 @@ Fusing the information from two different modalities of data for real time objec
 - Put the pre-trained feature extractors in the "pre_trained_models" folder
 
 ## Ros dependencies
-
+- Install ROS1 (Noetic Ninjemys distribution) on Ubuntu 20.04.
+- Follow the steps provided in the "ros_instruction" file to create the ROS package.
+- Copy paste the python scripts for publisher and subscriber nodes alongwith the pre-trained feature extractor and the saved matrices to the dedicated folders.
 
 ## Different combinations
 - Intra layer feature representation
