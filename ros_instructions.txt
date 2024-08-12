@@ -1,0 +1,94 @@
+A.
+---------------------------------------------------------------------------------------------------------------------
+1. Install the necessary software components and check that camera can be read by Linux
+- First connect camera to the port and then run cheese (which is a image capturing software that comes with ununtu)
+
+2. check if the driver for the camera exists
+--- type ls /dev/ |grep video
+-- you should see an output : video0, video1, ....
+
+3.  Install ros webcam driver using the commands
+--- sudo apt install ros-noetic-perception
+
+4. ROS should come with opencv  installation, however we can also manually install opencv and other tools for perception
+as follows:
+--- sudo apt install ros-noetic-perception
+
+---------------------------------------------------------------------------------------------------------------------
+B.
+---------------------------------------------------------------------------------------------------------------------
+1. Check the .bashrc file in order to make sure that the ROS environment is sourced
+--- type gedit ~/.bashrc
+
+-- if the ros environment is properly installed then you will see "source /opt/ros/noetic/setup.bash" at the end of the 
+script if not then type this line at the end of the .bashrc file
+
+--- source /opt/ros/noetic/setup.bash
+---------------------------------------------------------------------------------------------------------------------
+C. Create a ROS workspace
+---------------------------------------------------------------------------------------------------------------------
+mkdir -p ~/folder_name/src
+cd ~/folder_name
+catkin_make
+source ~/folder_name/devel/setup.bash
+echo $ROS_PACKAGE_PATH 
+-- gives the path of the newly created ros workspace
+---------------------------------------------------------------------------------------------------------------------
+C. Create a catkin package and Nodes
+---------------------------------------------------------------------------------------------------------------------
+--move to the src folder
+--- cd ~/folder_name/src
+-- we will then specify the ros packages and dependencies to install for our problem statement
+
+---catkin_create_pkg ros_opencv image_transport cv_bridge sensor_msgs rospy roscpp std_msgs
+--move to the ros_opencv folder
+
+--- cd ~/folder_name/ros_opencv/
+-- make a new directory with the name python scripts
+--- mkdir python_script
+
+--- cd python_script/
+-- create the source file where we will implement the camera publisher script
+--- gedit camera_publisher.py
+
+-- once the code is ready we then need to make the file executable using chmod
+--- chmod +x camera_publisher.py
+
+-- we now need to create the subscriber script
+--- gedit camera_subscriber.py
+--- chmod +x camera_subscriber.py
+---------------------------------------------------------------------------------------------------------------------
+D. Edit cmake list text file
+---------------------------------------------------------------------------------------------------------------------
+-- type gedit CMakeLists.txt
+--- uncomment the following lines
+--- catkin_install_python(PROGRAMS
+python_script/camera_publisher.py
+python_script/camera_subscriber.py
+DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+---------------------------------------------------------------------------------------------------------------------
+D. Test the file
+---------------------------------------------------------------------------------------------------------------------
+cd ~/ros_open_cv_ws/
+catkin_make
+
+---------------------------------------------------------------------------------------------------------------------
+E. Final Run
+---------------------------------------------------------------------------------------------------------------------
+--- open three terminals
+--- run roscore in one terminal
+--- run publisher.py in 2nd terminal
+    --- before that run the command: source ~/folder_name/devel/setup.bash"
+    --- and then run the command: rosrun ros_opencv camera_publisher.py
+    -- Remember "ros_opencv" is the ROS package name
+--- run subscriber in 3rd terminal
+    --- before that run the command: source ~/folder_name/devel/setup.bash"
+    --- and then run the command: rosrun ros_opencv camera_subscriber.py
+
+
+---------------------------------------------------------------------------------------------------------------------
+E. Some beneficial commands
+---------------------------------------------------------------------------------------------------------------------
+--- To display the output from a publisher
+-- rostopic echo /topic_name
